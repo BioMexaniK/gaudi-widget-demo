@@ -244,7 +244,8 @@
   }
   .teaser.in { opacity: 1; transform: none; }
   .teaser[hidden] { display: none !important; }
-  .teaser .who { font-weight: 600; display: block; margin-bottom: 2px; }
+  .teaser .tname { font-weight: 600; display: block; margin-bottom: 3px; color: #1c1c1a; }
+  .teaser .tmsg { display: block; color: #4a4442; }
   .teaser .x {
     background: transparent; border: none; color: #97918f; font-size: 17px; line-height: 1;
     cursor: pointer; padding: 2px 3px; margin: -3px -2px 0 0; border-radius: 5px; flex: none;
@@ -279,8 +280,8 @@
   wrap.innerHTML =
     '<style>' + css + '</style>' +
     '<button class="launcher" aria-haspopup="dialog">' + ICON_CHAT + '<span>' + esc(T.open) + '</span></button>' +
-    '<aside class="teaser" role="note" hidden><div><span class="who">' + esc(NAME) + '</span>' +
-      '<span class="msg">' + esc(INVITE_TEXT || T.invite) + '</span></div>' +
+    '<aside class="teaser" role="note" hidden><div><span class="tname">' + esc(NAME) + '</span>' +
+      '<span class="tmsg">' + esc(INVITE_TEXT || T.invite) + '</span></div>' +
       '<button class="x" aria-label="' + esc(T.close) + '">&times;</button></aside>' +
     '<section class="panel" role="dialog" aria-modal="false" aria-label="' + esc(T.title + ' — ' + T.sub) + '">' +
       '<header><div><div class="t">' + esc(T.title) + '</div><div class="s">' + esc(T.sub) + '</div></div>' +
