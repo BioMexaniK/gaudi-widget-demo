@@ -7,8 +7,9 @@
  *           data-gaudi-chat defer></script>
  *
  * Optional attributes on that tag:
- *   data-lang       force the widget's language (e.g. "en"); by default it follows the page's
- *                   <html lang>, then the browser. Set it if the page has no lang attribute.
+ *   data-lang       force the widget's language (e.g. "en"); by default it is taken from the URL
+ *                   path (/nl/nl/, /de/de/ ...), then the browser. Set it only for pages whose
+ *                   URL carries no language segment.
  *   data-endpoint   full URL of the chat function (defaults to the constant below)
  *   data-accent     accent colour, default #1c1c1a
  *   data-policy     privacy policy URL shown in the consent line
@@ -36,11 +37,25 @@
   var OFFSET = parseInt(A('offset', '24'), 10) || 24;
 
   // ---------------------------------------------------------------- i18n
-  // Language, in priority order: an explicit data-lang on the tag, then the PAGE's language
-  // (<html lang>), then the browser's, then English. The page wins over the browser on purpose:
-  // a German visitor reading the English version of the site should get an English widget.
-  var L = String(A('lang', '') || document.documentElement.getAttribute('lang') ||
-                 navigator.language || 'en').slice(0, 2).toLowerCase();
+  // Language detection, in priority order:
+  //   1. an explicit data-lang on the script tag;
+  //   2. the URL path — gaudidecor.eu serves /<country>/<language>/..., e.g. /nl/nl/, /de/de/,
+  //      /fr/fr/, so the first path segment that is a language we support wins;
+  //   3. the browser's language;
+  //   4. English.
+  // <html lang> is deliberately NOT used: on gaudidecor.eu it is hardcoded to "ru" on every page,
+  // including the Dutch and German ones (checked 2026-09-02). Trusting it would show a Russian
+  // widget to Dutch visitors. If that attribute is ever fixed site-wide, it can be added back.
+  var SUPPORTED = ['en', 'ru', 'de', 'fr', 'es', 'it', 'nl', 'pl'];
+  function langFromPath() {
+    var parts = location.pathname.toLowerCase().split('/').filter(Boolean).slice(0, 2);
+    for (var i = 0; i < parts.length; i++) {
+      if (SUPPORTED.indexOf(parts[i]) !== -1) return parts[i];
+    }
+    return '';
+  }
+  var L = String(A('lang', '') || langFromPath() || navigator.language || 'en')
+            .slice(0, 2).toLowerCase();
   var NAME = 'Toni';
   var STR = {
     en: { title: NAME, sub: 'GAUDI AI assistant', ph: 'Write a message…', send: 'Send',
