@@ -407,17 +407,18 @@
       .catch(function () { note(T.err); });
   });
 
-  composer.addEventListener('submit', function (e) {
-    e.preventDefault();
+  function submitNow() {
     var v = input.value; input.value = ''; input.style.height = 'auto';
     send(v);
-  });
+  }
+  composer.addEventListener('submit', function (e) { e.preventDefault(); submitNow(); });
   input.addEventListener('input', function () {
     input.style.height = 'auto';
     input.style.height = Math.min(input.scrollHeight, 120) + 'px';
   });
   input.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); composer.dispatchEvent(new Event('submit')); }
+    // call the sender directly: a synthetic 'submit' Event is not reliable across browsers
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitNow(); }
   });
 
   contact.addEventListener('submit', function (e) {
