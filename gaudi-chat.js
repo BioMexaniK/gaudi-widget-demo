@@ -16,6 +16,11 @@
  *   data-position    "right" (default) | "left"  — the site already has WhatsApp/Telegram
  *                    bubbles bottom-right, so "left" may be the right call there
  *   data-offset     px from the bottom, default 24 — raise it to clear those bubbles
+ *   data-invite     "off" disables the proactive invite bubble (on by default)
+ *   data-invite-delay   seconds on the page before it appears, default 40
+ *   data-invite-text    override the invite copy (otherwise localised, see STR.invite)
+ *   data-invite-exclude comma-separated URL fragments where it must never appear,
+ *                   default "contact,faq,download,privacy,cart,checkout"
  */
 (function () {
   'use strict';
@@ -35,6 +40,11 @@
   var POLICY = A('policy', '');
   var SIDE = A('position', 'right') === 'left' ? 'left' : 'right';
   var OFFSET = parseInt(A('offset', '24'), 10) || 24;
+  var INVITE_ON = A('invite', 'on') !== 'off';
+  var INVITE_DELAY = (parseInt(A('invite-delay', '40'), 10) || 40) * 1000;
+  var INVITE_TEXT = A('invite-text', '');
+  var INVITE_EXCLUDE = A('invite-exclude', 'contact,faq,download,privacy,cart,checkout')
+                         .split(',').map(function (x) { return x.trim().toLowerCase(); }).filter(Boolean);
 
   // ---------------------------------------------------------------- i18n
   // Language detection, in priority order:
@@ -64,56 +74,56 @@
           accept: 'Start chat', hint: 'Ask about decor, sizes, delivery', typing: 'typing…',
           slow: 'Still working on it…', err: 'Connection problem. Try again.',
           manager: 'manager', contactCta: 'Leave your e-mail and we will reply',
-          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' },
+          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' },
     ru: { title: NAME, sub: 'ИИ-ассистент GAUDI', ph: 'Напишите сообщение…', send: 'Отправить',
           open: 'Написать нам', close: 'Закрыть чат',
           consent: 'Чтобы ответить, мы сохраняем переписку.', policy: 'Политика конфиденциальности',
           accept: 'Начать чат', hint: 'Спросите про декор, размеры, доставку', typing: 'печатает…',
           slow: 'Ещё думаю…', err: 'Проблема со связью. Попробуйте ещё раз.',
           manager: 'менеджер', contactCta: 'Оставьте e-mail, и мы ответим',
-          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' },
+          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' },
     de: { title: NAME, sub: 'KI-Assistent von GAUDI', ph: 'Nachricht schreiben…', send: 'Senden',
           open: 'Schreiben Sie uns', close: 'Chat schließen',
           consent: 'Um zu antworten, speichern wir diesen Chat.', policy: 'Datenschutz',
           accept: 'Chat starten', hint: 'Fragen zu Dekor, Maßen, Lieferung', typing: 'schreibt…',
           slow: 'Einen Moment noch…', err: 'Verbindungsproblem. Bitte erneut versuchen.',
           manager: 'Berater', contactCta: 'E-Mail hinterlassen, wir antworten',
-          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' },
+          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' },
     fr: { title: NAME, sub: 'Assistant IA de GAUDI', ph: 'Écrivez un message…', send: 'Envoyer',
           open: 'Écrivez-nous', close: 'Fermer',
           consent: 'Pour vous répondre, nous conservons cette conversation.', policy: 'Confidentialité',
           accept: 'Démarrer', hint: 'Décor, dimensions, livraison', typing: 'écrit…',
           slow: 'Je réfléchis encore…', err: 'Problème de connexion. Réessayez.',
           manager: 'conseiller', contactCta: 'Laissez votre e-mail, nous répondrons',
-          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' },
+          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' },
     es: { title: NAME, sub: 'Asistente de IA de GAUDI', ph: 'Escriba un mensaje…', send: 'Enviar',
           open: 'Escríbanos', close: 'Cerrar',
           consent: 'Para responderle, guardamos esta conversación.', policy: 'Privacidad',
           accept: 'Empezar', hint: 'Decoración, medidas, envío', typing: 'escribiendo…',
           slow: 'Sigo pensando…', err: 'Problema de conexión. Inténtelo de nuevo.',
           manager: 'gestor', contactCta: 'Deje su e-mail y le responderemos',
-          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' },
+          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' },
     it: { title: NAME, sub: 'Assistente IA di GAUDI', ph: 'Scrivi un messaggio…', send: 'Invia',
           open: 'Scrivici', close: 'Chiudi',
           consent: 'Per risponderti conserviamo questa conversazione.', policy: 'Privacy',
           accept: 'Inizia', hint: 'Decori, misure, spedizione', typing: 'sta scrivendo…',
           slow: 'Ci sto ancora lavorando…', err: 'Problema di connessione. Riprova.',
           manager: 'referente', contactCta: 'Lascia la tua e-mail, ti risponderemo',
-          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' },
+          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' },
     nl: { title: NAME, sub: 'AI-assistent van GAUDI', ph: 'Schrijf een bericht…', send: 'Versturen',
           open: 'Schrijf ons', close: 'Sluiten',
           consent: 'Om te antwoorden bewaren wij dit gesprek.', policy: 'Privacybeleid',
           accept: 'Start chat', hint: 'Decor, maten, levering', typing: 'typt…',
           slow: 'Nog even…', err: 'Verbindingsprobleem. Probeer opnieuw.',
           manager: 'medewerker', contactCta: 'Laat uw e-mail achter, wij antwoorden',
-          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' },
+          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' },
     pl: { title: NAME, sub: 'Asystent AI GAUDI', ph: 'Napisz wiadomość…', send: 'Wyślij',
           open: 'Napisz do nas', close: 'Zamknij',
           consent: 'Aby odpowiedzieć, zachowujemy tę rozmowę.', policy: 'Prywatność',
           accept: 'Rozpocznij', hint: 'Dekory, wymiary, dostawa', typing: 'pisze…',
           slow: 'Jeszcze myślę…', err: 'Problem z połączeniem. Spróbuj ponownie.',
           manager: 'opiekun', contactCta: 'Zostaw e-mail, odpowiemy',
-          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' }
+          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' }
   };
   var T = STR[L] || STR.en;
 
@@ -223,6 +233,25 @@
   .go:disabled { opacity: .45; cursor: default; }
   .go svg { width: 18px; height: 18px; }
 
+  /* proactive invite: a small bubble beside the launcher, never a forced pop-up */
+  .teaser {
+    position: fixed; ${SIDE}: 24px; bottom: ${OFFSET + 58}px; z-index: 2147483000;
+    max-width: 268px; display: flex; align-items: flex-start; gap: 10px;
+    background: #fff; color: #1c1c1a; border: 1px solid rgba(0,0,0,.09);
+    border-radius: 14px; padding: 13px 12px 13px 14px; font-size: 13.5px; line-height: 1.45;
+    box-shadow: 0 10px 30px rgba(0,0,0,.18); cursor: pointer;
+    opacity: 0; transform: translateY(8px); transition: opacity .28s ease, transform .28s ease;
+  }
+  .teaser.in { opacity: 1; transform: none; }
+  .teaser[hidden] { display: none !important; }
+  .teaser .who { font-weight: 600; display: block; margin-bottom: 2px; }
+  .teaser .x {
+    background: transparent; border: none; color: #97918f; font-size: 17px; line-height: 1;
+    cursor: pointer; padding: 2px 3px; margin: -3px -2px 0 0; border-radius: 5px; flex: none;
+  }
+  .teaser .x:hover { background: rgba(0,0,0,.06); color: #1c1c1a; }
+  @media (max-width: 480px) { .teaser { max-width: calc(100vw - 92px); ${SIDE}: 16px; bottom: 74px; } }
+
   .gate { padding: 20px 18px; display: flex; flex-direction: column; gap: 14px; }
   .gate p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #55554f; }
   .gate a { color: ${ACCENT}; }
@@ -250,6 +279,9 @@
   wrap.innerHTML =
     '<style>' + css + '</style>' +
     '<button class="launcher" aria-haspopup="dialog">' + ICON_CHAT + '<span>' + esc(T.open) + '</span></button>' +
+    '<aside class="teaser" role="note" hidden><div><span class="who">' + esc(NAME) + '</span>' +
+      '<span class="msg">' + esc(INVITE_TEXT || T.invite) + '</span></div>' +
+      '<button class="x" aria-label="' + esc(T.close) + '">&times;</button></aside>' +
     '<section class="panel" role="dialog" aria-modal="false" aria-label="' + esc(T.title + ' — ' + T.sub) + '">' +
       '<header><div><div class="t">' + esc(T.title) + '</div><div class="s">' + esc(T.sub) + '</div></div>' +
         '<div class="grow"></div><button class="x" aria-label="' + esc(T.close) + '">&times;</button></header>' +
@@ -387,6 +419,7 @@
   function send(text) {
     if (sending || !text.trim()) return;
     sending = true; go.disabled = true;
+    try { localStorage.setItem('gaudi_talked', '1'); } catch (e) {}
     addMsg({ role: 'client', body: esc(text), id: 0 });
     typing(true);
     fastUntil = Date.now() + 45000;
@@ -406,6 +439,7 @@
   // ---------------------------------------------------------------- events
   function open() {
     opened = true;
+    if (typeof hideInvite === 'function') hideInvite(false);
     panel.classList.add('open');
     launcher.hidden = true;
     if (!started) start(); else { poll(); }
@@ -450,6 +484,49 @@
       .then(function () { contact.hidden = true; note(T.saved); })
       .catch(function () { note(T.err); });
   });
+
+  // ---------------------------------------------------------------- proactive invite
+  // A bubble, never a forced panel: an uninvited full-screen chat reads as a pop-up, and on
+  // mobile it covers the page the visitor was reading. Shown once per visit, silenced for a day
+  // once dismissed, and never to someone who has already written to us. Costs nothing until the
+  // visitor answers — the text is local, no request is made.
+  var teaser = $('.teaser'), inviteTimer = null;
+  var TALKED_KEY = 'gaudi_talked', HUSH_KEY = 'gaudi_invite_hushed';
+
+  function store(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (e) { return null; } }
+
+  function inviteAllowed() {
+    if (!INVITE_ON || opened || store(TALKED_KEY)) return false;
+    var path = (location.pathname + location.search).toLowerCase();
+    for (var i = 0; i < INVITE_EXCLUDE.length; i++) {
+      if (path.indexOf(INVITE_EXCLUDE[i]) !== -1) return false;
+    }
+    var hushed = store(HUSH_KEY);
+    return !(hushed && (Date.now() - Number(hushed)) < 86400000);
+  }
+
+  function showInvite() {
+    if (!inviteAllowed()) return;
+    teaser.hidden = false;
+    requestAnimationFrame(function () { teaser.classList.add('in'); });
+  }
+
+  function hideInvite(hush) {
+    clearTimeout(inviteTimer);
+    teaser.classList.remove('in');
+    teaser.hidden = true;
+    if (hush) store(HUSH_KEY, String(Date.now()));
+  }
+
+  if (INVITE_ON) {
+    inviteTimer = setTimeout(showInvite, INVITE_DELAY);
+    teaser.addEventListener('click', function (e) {
+      if (e.target.closest('.x')) { hideInvite(true); return; }
+      hideInvite(false);
+      open();
+      note(INVITE_TEXT || T.invite);        // carry the greeting into the thread
+    });
+  }
 
   // public hook so the site can open the chat from its own button
   window.gaudiChat = { open: open, close: close, askContact: function () { contact.hidden = false; } };
