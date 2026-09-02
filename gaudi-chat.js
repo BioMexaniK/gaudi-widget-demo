@@ -7,6 +7,8 @@
  *           data-gaudi-chat defer></script>
  *
  * Optional attributes on that tag:
+ *   data-lang       force the widget's language (e.g. "en"); by default it follows the page's
+ *                   <html lang>, then the browser. Set it if the page has no lang attribute.
  *   data-endpoint   full URL of the chat function (defaults to the constant below)
  *   data-accent     accent colour, default #1c1c1a
  *   data-policy     privacy policy URL shown in the consent line
@@ -34,61 +36,66 @@
   var OFFSET = parseInt(A('offset', '24'), 10) || 24;
 
   // ---------------------------------------------------------------- i18n
-  var L = (navigator.language || 'en').slice(0, 2).toLowerCase();
+  // Language, in priority order: an explicit data-lang on the tag, then the PAGE's language
+  // (<html lang>), then the browser's, then English. The page wins over the browser on purpose:
+  // a German visitor reading the English version of the site should get an English widget.
+  var L = String(A('lang', '') || document.documentElement.getAttribute('lang') ||
+                 navigator.language || 'en').slice(0, 2).toLowerCase();
+  var NAME = 'Toni';
   var STR = {
-    en: { title: 'GAUDI assistant', sub: 'Ask about decor, sizes, delivery',
-          ph: 'Write a message…', send: 'Send', open: 'Chat with us', close: 'Close chat',
-          consent: 'I agree that my messages are processed so you can answer me.',
-          policy: 'Privacy policy', accept: 'Start chatting', typing: 'typing…',
+    en: { title: NAME, sub: 'GAUDI AI assistant', ph: 'Write a message…', send: 'Send',
+          open: 'Chat with us', close: 'Close chat',
+          consent: 'To answer you, we keep this conversation.', policy: 'Privacy policy',
+          accept: 'Start chat', hint: 'Ask about decor, sizes, delivery', typing: 'typing…',
           slow: 'Still working on it…', err: 'Connection problem. Try again.',
           manager: 'manager', contactCta: 'Leave your e-mail and we will reply',
           email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' },
-    ru: { title: 'Ассистент GAUDI', sub: 'Спросите про декор, размеры, доставку',
-          ph: 'Напишите сообщение…', send: 'Отправить', open: 'Написать нам', close: 'Закрыть чат',
-          consent: 'Согласен на обработку моих сообщений для ответа мне.',
-          policy: 'Политика конфиденциальности', accept: 'Начать чат', typing: 'печатает…',
+    ru: { title: NAME, sub: 'ИИ-ассистент GAUDI', ph: 'Напишите сообщение…', send: 'Отправить',
+          open: 'Написать нам', close: 'Закрыть чат',
+          consent: 'Чтобы ответить, мы сохраняем переписку.', policy: 'Политика конфиденциальности',
+          accept: 'Начать чат', hint: 'Спросите про декор, размеры, доставку', typing: 'печатает…',
           slow: 'Ещё думаю…', err: 'Проблема со связью. Попробуйте ещё раз.',
           manager: 'менеджер', contactCta: 'Оставьте e-mail, и мы ответим',
           email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' },
-    de: { title: 'GAUDI Assistent', sub: 'Fragen zu Dekor, Maßen, Lieferung',
-          ph: 'Nachricht schreiben…', send: 'Senden', open: 'Schreiben Sie uns', close: 'Chat schließen',
-          consent: 'Ich stimme der Verarbeitung meiner Nachrichten zur Beantwortung zu.',
-          policy: 'Datenschutz', accept: 'Chat starten', typing: 'schreibt…',
+    de: { title: NAME, sub: 'KI-Assistent von GAUDI', ph: 'Nachricht schreiben…', send: 'Senden',
+          open: 'Schreiben Sie uns', close: 'Chat schließen',
+          consent: 'Um zu antworten, speichern wir diesen Chat.', policy: 'Datenschutz',
+          accept: 'Chat starten', hint: 'Fragen zu Dekor, Maßen, Lieferung', typing: 'schreibt…',
           slow: 'Einen Moment noch…', err: 'Verbindungsproblem. Bitte erneut versuchen.',
           manager: 'Berater', contactCta: 'E-Mail hinterlassen, wir antworten',
           email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' },
-    fr: { title: 'Assistant GAUDI', sub: 'Décor, dimensions, livraison',
-          ph: 'Écrivez un message…', send: 'Envoyer', open: 'Écrivez-nous', close: 'Fermer',
-          consent: 'J’accepte le traitement de mes messages pour me répondre.',
-          policy: 'Confidentialité', accept: 'Démarrer', typing: 'écrit…',
+    fr: { title: NAME, sub: 'Assistant IA de GAUDI', ph: 'Écrivez un message…', send: 'Envoyer',
+          open: 'Écrivez-nous', close: 'Fermer',
+          consent: 'Pour vous répondre, nous conservons cette conversation.', policy: 'Confidentialité',
+          accept: 'Démarrer', hint: 'Décor, dimensions, livraison', typing: 'écrit…',
           slow: 'Je réfléchis encore…', err: 'Problème de connexion. Réessayez.',
           manager: 'conseiller', contactCta: 'Laissez votre e-mail, nous répondrons',
           email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' },
-    es: { title: 'Asistente GAUDI', sub: 'Decoración, medidas, envío',
-          ph: 'Escriba un mensaje…', send: 'Enviar', open: 'Escríbanos', close: 'Cerrar',
-          consent: 'Acepto el tratamiento de mis mensajes para responderme.',
-          policy: 'Privacidad', accept: 'Empezar', typing: 'escribiendo…',
+    es: { title: NAME, sub: 'Asistente de IA de GAUDI', ph: 'Escriba un mensaje…', send: 'Enviar',
+          open: 'Escríbanos', close: 'Cerrar',
+          consent: 'Para responderle, guardamos esta conversación.', policy: 'Privacidad',
+          accept: 'Empezar', hint: 'Decoración, medidas, envío', typing: 'escribiendo…',
           slow: 'Sigo pensando…', err: 'Problema de conexión. Inténtelo de nuevo.',
           manager: 'gestor', contactCta: 'Deje su e-mail y le responderemos',
           email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' },
-    it: { title: 'Assistente GAUDI', sub: 'Decori, misure, spedizione',
-          ph: 'Scrivi un messaggio…', send: 'Invia', open: 'Scrivici', close: 'Chiudi',
-          consent: 'Acconsento al trattamento dei messaggi per ricevere risposta.',
-          policy: 'Privacy', accept: 'Inizia', typing: 'sta scrivendo…',
+    it: { title: NAME, sub: 'Assistente IA di GAUDI', ph: 'Scrivi un messaggio…', send: 'Invia',
+          open: 'Scrivici', close: 'Chiudi',
+          consent: 'Per risponderti conserviamo questa conversazione.', policy: 'Privacy',
+          accept: 'Inizia', hint: 'Decori, misure, spedizione', typing: 'sta scrivendo…',
           slow: 'Ci sto ancora lavorando…', err: 'Problema di connessione. Riprova.',
           manager: 'referente', contactCta: 'Lascia la tua e-mail, ti risponderemo',
           email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' },
-    nl: { title: 'GAUDI assistent', sub: 'Decor, maten, levering',
-          ph: 'Schrijf een bericht…', send: 'Versturen', open: 'Schrijf ons', close: 'Sluiten',
-          consent: 'Ik ga akkoord met verwerking van mijn berichten om mij te antwoorden.',
-          policy: 'Privacybeleid', accept: 'Start chat', typing: 'typt…',
+    nl: { title: NAME, sub: 'AI-assistent van GAUDI', ph: 'Schrijf een bericht…', send: 'Versturen',
+          open: 'Schrijf ons', close: 'Sluiten',
+          consent: 'Om te antwoorden bewaren wij dit gesprek.', policy: 'Privacybeleid',
+          accept: 'Start chat', hint: 'Decor, maten, levering', typing: 'typt…',
           slow: 'Nog even…', err: 'Verbindingsprobleem. Probeer opnieuw.',
           manager: 'medewerker', contactCta: 'Laat uw e-mail achter, wij antwoorden',
           email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' },
-    pl: { title: 'Asystent GAUDI', sub: 'Dekory, wymiary, dostawa',
-          ph: 'Napisz wiadomość…', send: 'Wyślij', open: 'Napisz do nas', close: 'Zamknij',
-          consent: 'Zgadzam się na przetwarzanie moich wiadomości w celu odpowiedzi.',
-          policy: 'Prywatność', accept: 'Rozpocznij', typing: 'pisze…',
+    pl: { title: NAME, sub: 'Asystent AI GAUDI', ph: 'Napisz wiadomość…', send: 'Wyślij',
+          open: 'Napisz do nas', close: 'Zamknij',
+          consent: 'Aby odpowiedzieć, zachowujemy tę rozmowę.', policy: 'Prywatność',
+          accept: 'Rozpocznij', hint: 'Dekory, wymiary, dostawa', typing: 'pisze…',
           slow: 'Jeszcze myślę…', err: 'Problem z połączeniem. Spróbuj ponownie.',
           manager: 'opiekun', contactCta: 'Zostaw e-mail, odpowiemy',
           email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' }
@@ -162,7 +169,7 @@
   header { display: flex; align-items: center; gap: 12px; padding: 16px 16px 14px;
            background: ${ACCENT}; color: #fff; }
   header .t { font-size: 15px; font-weight: 600; letter-spacing: .2px; }
-  header .s { font-size: 12px; opacity: .72; margin-top: 3px; }
+  header .s { font-size: 12px; opacity: .72; margin-top: 3px; }   /* AI disclosure — do not remove */
   header .grow { flex: 1; }
   header button { background: transparent; border: none; color: #fff; opacity: .8; cursor: pointer;
                   font-size: 22px; line-height: 1; padding: 4px 6px; border-radius: 6px; }
@@ -228,7 +235,7 @@
   wrap.innerHTML =
     '<style>' + css + '</style>' +
     '<button class="launcher" aria-haspopup="dialog">' + ICON_CHAT + '<span>' + esc(T.open) + '</span></button>' +
-    '<section class="panel" role="dialog" aria-modal="false" aria-label="' + esc(T.title) + '">' +
+    '<section class="panel" role="dialog" aria-modal="false" aria-label="' + esc(T.title + ' — ' + T.sub) + '">' +
       '<header><div><div class="t">' + esc(T.title) + '</div><div class="s">' + esc(T.sub) + '</div></div>' +
         '<div class="grow"></div><button class="x" aria-label="' + esc(T.close) + '">&times;</button></header>' +
       '<div class="gate" hidden><p>' + esc(T.consent) +
@@ -357,7 +364,7 @@
       humanName = d.human_name || null;
       gate.hidden = consentDone;
       composer.hidden = !consentDone;
-      if (consentDone && !(d.history || []).length) note(T.sub);
+      if (consentDone && !(d.history || []).length) note(T.hint);
       schedule();
     }).catch(function () { note(T.err); });
   }
@@ -402,7 +409,7 @@
     api('/consent', { sid: sid, granted: true, text: T.consent, page_url: location.href, lang: L })
       .then(function () {
         consentDone = true; gate.hidden = true; composer.hidden = false;
-        note(T.sub); input.focus();
+        note(T.hint); input.focus();
       })
       .catch(function () { note(T.err); });
   });
