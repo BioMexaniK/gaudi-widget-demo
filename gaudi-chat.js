@@ -309,21 +309,15 @@
   .bar input:focus { border-color: #6b5518; }
   .bar.done { background: #eef5ec; border-bottom-color: #cfe0cb; color: #335c3a; cursor: default; }
 
-  .gate .phone { border: 1px solid rgba(0,0,0,.14); border-radius: 10px; padding: 10px 12px;
-                 font-size: 14.5px; outline: none; width: 100%; }
-  .gate .phone:focus { border-color: ${ACCENT}; }
+  .gate .phone, .gate .cname { border: 1px solid rgba(0,0,0,.14); border-radius: 10px;
+                 padding: 10px 12px; font-size: 14.5px; outline: none; width: 100%; }
+  .gate .phone:focus, .gate .cname:focus { border-color: ${ACCENT}; }
 
   .gate { padding: 20px 18px; display: flex; flex-direction: column; gap: 14px; }
   .gate p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #55554f; }
   .gate a { color: ${ACCENT}; }
-  .gate button, .contact button { background: ${ACCENT}; color: #fff; border: none;
+  .gate button { background: ${ACCENT}; color: #fff; border: none;
         border-radius: 10px; padding: 12px 16px; font-size: 14.5px; cursor: pointer; }
-  .contact { padding: 14px 16px; border-top: 1px solid rgba(0,0,0,.07); background: #fff;
-             display: flex; flex-direction: column; gap: 8px; }
-  .contact p { margin: 0 0 2px; font-size: 13px; color: #55554f; }
-  .contact input { border: 1px solid rgba(0,0,0,.14); border-radius: 9px; padding: 9px 11px;
-                   font-size: 14px; outline: none; }
-  .contact input:focus { border-color: ${ACCENT}; }
 
   /* Narrow screens: the site keeps a fixed bottom menu there, so the launcher and the invite
      get their own offset (data-offset-mobile) above whatever that menu occupies. */
@@ -353,7 +347,8 @@
         '<div class="grow"></div><button class="x" aria-label="' + esc(T.close) + '">&times;</button></header>' +
       '<div class="gate" hidden><p>' + esc(T.consent) +
         (POLICY ? ' <a href="' + encodeURI(POLICY) + '" target="_blank" rel="noopener noreferrer">' + esc(T.policy) + '</a>' : '') +
-        '</p><input class="phone" type="text" inputmode="tel" autocomplete="tel" placeholder="' +
+        '</p><input class="cname" type="text" autocomplete="name" placeholder="' + esc(T.name) + '">' +
+        '<input class="phone" type="text" inputmode="tel" autocomplete="tel" placeholder="' +
         esc(T.phonePh) + '"><button class="ok">' + esc(T.accept) + '</button></div>' +
       '<aside class="bar" hidden><span class="txt">' + esc(T.barText) + '</span>' +
         '<button class="go2" type="button">' + esc(T.barCta) + '</button></aside>' +
@@ -363,17 +358,13 @@
           '<svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.9 19c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.6L18.4 7c.4-.3-.1-.5-.6-.2L7.5 13.3l-4.4-1.4c-1-.3-1-1 .2-1.4l17.2-6.6c.8-.3 1.5.2 1.4 1.4Z"/></svg>' + '</button>' +
         '<textarea rows="1" placeholder="' + esc(T.ph) + '" maxlength="2000"></textarea>' +
         '<button class="go" type="submit" aria-label="' + esc(T.send) + '">' + ICON_SEND + '</button></form>' +
-      '<form class="contact" hidden><p>' + esc(T.contactCta) + '</p>' +
-        '<input name="name" placeholder="' + esc(T.name) + '" autocomplete="name">' +
-        '<input name="phone" type="text" inputmode="tel" placeholder="' + esc(T.phonePh) + '" autocomplete="tel" required>' +
-        '<button type="submit">' + esc(T.save) + '</button></form>' +
+
     '</section>';
   root.appendChild(wrap);
 
   var $ = function (s) { return root.querySelector(s); };
   var launcher = $('.launcher'), panel = $('.panel'), thread = $('.thread'),
-      composer = $('.composer'), input = $('textarea'), gate = $('.gate'),
-      contact = $('.contact'), go = $('.go');
+      composer = $('.composer'), input = $('textarea'), gate = $('.gate'), go = $('.go');
 
   // ---------------------------------------------------------------- rendering
   function esc(s) {
@@ -502,7 +493,7 @@
       .catch(function (e) {
         typing(false);
         note((e.payload && e.payload.message) || T.err);
-        if (e.status === 429 || e.status === 503) contact.hidden = false;
+        if (e.status === 429 || e.status === 503) showBar(true);
       })
       .then(function () {
         clearTimeout(slow); sending = false; go.disabled = false; schedule();
@@ -529,8 +520,9 @@
 
   $('.ok').addEventListener('click', function () {
     var typed = $('.gate .phone') ? $('.gate .phone').value : '';
+    var typedName = $('.gate .cname') ? $('.gate .cname').value.trim() : '';
     api('/consent', { sid: sid, granted: true, text: T.consent, page_url: location.href, lang: L })
-      .then(function () { return typed ? saveContact(typed) : null; })
+      .then(function () { return (typed || typedName) ? saveContact(typed, typedName) : null; })
       .then(function () {
         consentDone = true; gate.hidden = true; composer.hidden = false;
         note(T.hint); input.focus();
@@ -552,17 +544,6 @@
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitNow(); }
   });
 
-  contact.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var f = new FormData(contact);
-    api('/contact', { sid: sid, name: f.get('name') || '', phone: f.get('phone') || '' })
-      .then(function () {
-        contact.hidden = true; contactGiven = true; bar.hidden = true;
-        try { localStorage.setItem('gaudi_contact_given', '1'); } catch (e) {}
-        note(T.saved);
-      })
-      .catch(function () { note(T.err); });
-  });
 
   // ---------------------------------------------------------------- contact capture
   // The phone is never required: it is optional on the consent screen, and afterwards it lives in
@@ -573,12 +554,15 @@
   var CONTACT_KEY = 'gaudi_contact_given';
   try { contactGiven = !!localStorage.getItem(CONTACT_KEY); } catch (e) {}
 
-  function saveContact(value) {
+  function saveContact(value, name) {
     var v = String(value || '').trim();
-    if (!v) return Promise.resolve(false);
+    var nm = String(name || '').trim();
+    if (!v && !nm) return Promise.resolve(false);
     var body = { sid: sid };
-    body[v.indexOf('@') > 0 ? 'email' : 'phone'] = v;
+    if (nm) body.name = nm;
+    if (v) body[v.indexOf('@') > 0 ? 'email' : 'phone'] = v;
     return api('/contact', body).then(function () {
+      if (!v) return true;                       // a name alone does not count as a contact
       contactGiven = true;
       try { localStorage.setItem(CONTACT_KEY, '1'); } catch (e) {}
       return true;
@@ -595,7 +579,7 @@
     if (bar.querySelector('form') || contactGiven) return;
     var f = document.createElement('form');
     f.innerHTML = '<input type="text" inputmode="tel" autocomplete="tel" placeholder="' +
-                  esc(T.phonePh) + '"><button class="go2" type="submit">' + esc(T.barCta) + '</button>';
+                  esc(T.phonePh) + '"><button class="go2" type="submit">' + esc(T.save) + '</button>';
     bar.innerHTML = '';
     bar.appendChild(f);
     f.querySelector('input').focus();
@@ -714,5 +698,5 @@
   }
 
   // public hook so the site can open the chat from its own button
-  window.gaudiChat = { open: open, close: close, askContact: function () { contact.hidden = false; } };
+  window.gaudiChat = { open: open, close: close, askContact: function () { showBar(true); } };
 })();
