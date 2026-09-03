@@ -20,7 +20,8 @@
  *                   raise it to clear a fixed bottom menu
  *   data-mobile-breakpoint  width below which the mobile offset applies, default 900
  *   data-invite     "off" disables the proactive invite bubble (on by default)
- *   data-invite-delay   seconds on the page before it appears, default 40
+ *   data-invite-delay   seconds on the page before it appears, default 30
+ *   data-invite-sound   "off" mutes the soft click that plays with the invite (on by default)
  *   data-invite-text    override the invite copy (otherwise localised, see STR.invite)
  *   data-invite-exclude comma-separated URL fragments where it must never appear,
  *                   default "contact,faq,download,privacy,cart,checkout"
@@ -47,8 +48,9 @@
   var MOB_OFFSET = parseInt(A('offset-mobile', String(OFFSET)), 10);
   if (isNaN(MOB_OFFSET)) MOB_OFFSET = OFFSET;
   var INVITE_ON = A('invite', 'on') !== 'off';
-  var INVITE_DELAY = (parseInt(A('invite-delay', '40'), 10) || 40) * 1000;
+  var INVITE_DELAY = (parseInt(A('invite-delay', '30'), 10) || 30) * 1000;
   var INVITE_TEXT = A('invite-text', '');
+  var INVITE_SOUND = A('invite-sound', 'on') !== 'off';
   var INVITE_EXCLUDE = A('invite-exclude', 'contact,faq,download,privacy,cart,checkout')
                          .split(',').map(function (x) { return x.trim().toLowerCase(); }).filter(Boolean);
 
@@ -533,10 +535,38 @@
     return !(hushed && (Date.now() - Number(hushed)) < 86400000);
   }
 
+  // A short, soft click when the invite appears. Synthesised with WebAudio so nothing extra is
+  // downloaded. Browsers block audio until the visitor has interacted with the page, so this is
+  // best-effort by design: if the context cannot start, we stay silent rather than retry.
+  // Skipped for visitors who asked for reduced motion — they generally want less of everything.
+  function playClick() {
+    if (!INVITE_SOUND) return;
+    try {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      var Ctx = window.AudioContext || window.webkitAudioContext;
+      if (!Ctx) return;
+      var ctx = new Ctx();
+      if (ctx.state === 'suspended' && ctx.resume) ctx.resume();
+      var t = ctx.currentTime;
+      var osc = ctx.createOscillator(), gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(880, t);
+      osc.frequency.exponentialRampToValueAtTime(540, t + 0.05);
+      gain.gain.setValueAtTime(0.0001, t);
+      gain.gain.exponentialRampToValueAtTime(0.05, t + 0.008);   // quiet on purpose
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.1);
+      osc.onended = function () { try { ctx.close(); } catch (e) {} };
+    } catch (e) { /* audio unavailable — the invite is still visible */ }
+  }
+
   function showInvite() {
     if (!inviteAllowed()) return;
     teaser.hidden = false;
     requestAnimationFrame(function () { teaser.classList.add('in'); });
+    playClick();
   }
 
   function hideInvite(hush) {
