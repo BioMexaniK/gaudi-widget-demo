@@ -98,56 +98,56 @@
           accept: 'Start chat', hint: 'Ask about decor, sizes, delivery', typing: 'typing…',
           slow: 'Still working on it…', err: 'Connection problem. Try again.',
           manager: 'manager', contactCta: 'Leave your phone number and we will reply',
-          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' , phonePh: 'Phone number', barText: 'Leave a phone number so this chat is not lost', barCta: 'Add', barSaved: 'Saved — thank you.' },
+          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' , phonePh: 'Phone number', barText: 'Leave a phone number so this chat is not lost', barCta: 'Add', barSaved: 'Saved — thank you.' , tg: 'Continue in Telegram' },
     ru: { title: NAME, sub: 'ИИ-ассистент GAUDI', ph: 'Напишите сообщение…', send: 'Отправить',
           open: 'Написать нам', close: 'Закрыть чат',
           consent: 'Чтобы ответить, мы сохраняем переписку.', policy: 'Политика конфиденциальности',
           accept: 'Начать чат', hint: 'Спросите про декор, размеры, доставку', typing: 'печатает…',
           slow: 'Ещё думаю…', err: 'Проблема со связью. Попробуйте ещё раз.',
           manager: 'менеджер', contactCta: 'Оставьте телефон, и мы ответим',
-          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' , phonePh: 'Телефон', barText: 'Оставьте номер, чтобы не потерять диалог', barCta: 'Добавить', barSaved: 'Сохранено, спасибо.' },
+          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' , phonePh: 'Телефон', barText: 'Оставьте номер, чтобы не потерять диалог', barCta: 'Добавить', barSaved: 'Сохранено, спасибо.' , tg: 'Продолжить в Telegram' },
     de: { title: NAME, sub: 'KI-Assistent von GAUDI', ph: 'Nachricht schreiben…', send: 'Senden',
           open: 'Schreiben Sie uns', close: 'Chat schließen',
           consent: 'Um zu antworten, speichern wir diesen Chat.', policy: 'Datenschutz',
           accept: 'Chat starten', hint: 'Fragen zu Dekor, Maßen, Lieferung', typing: 'schreibt…',
           slow: 'Einen Moment noch…', err: 'Verbindungsproblem. Bitte erneut versuchen.',
           manager: 'Berater', contactCta: 'Telefonnummer hinterlassen, wir melden uns',
-          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' , phonePh: 'Telefonnummer', barText: 'Nummer hinterlassen, damit der Chat nicht verloren geht', barCta: 'Hinzufügen', barSaved: 'Gespeichert — danke.' },
+          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' , phonePh: 'Telefonnummer', barText: 'Nummer hinterlassen, damit der Chat nicht verloren geht', barCta: 'Hinzufügen', barSaved: 'Gespeichert — danke.' , tg: 'In Telegram fortsetzen' },
     fr: { title: NAME, sub: 'Assistant IA de GAUDI', ph: 'Écrivez un message…', send: 'Envoyer',
           open: 'Écrivez-nous', close: 'Fermer',
           consent: 'Pour vous répondre, nous conservons cette conversation.', policy: 'Confidentialité',
           accept: 'Démarrer', hint: 'Décor, dimensions, livraison', typing: 'écrit…',
           slow: 'Je réfléchis encore…', err: 'Problème de connexion. Réessayez.',
           manager: 'conseiller', contactCta: 'Laissez votre numéro, nous vous rappellerons',
-          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' , phonePh: 'Numéro de téléphone', barText: 'Laissez un numéro pour ne pas perdre la conversation', barCta: 'Ajouter', barSaved: 'Enregistré — merci.' },
+          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' , phonePh: 'Numéro de téléphone', barText: 'Laissez un numéro pour ne pas perdre la conversation', barCta: 'Ajouter', barSaved: 'Enregistré — merci.' , tg: 'Continuer sur Telegram' },
     es: { title: NAME, sub: 'Asistente de IA de GAUDI', ph: 'Escriba un mensaje…', send: 'Enviar',
           open: 'Escríbanos', close: 'Cerrar',
           consent: 'Para responderle, guardamos esta conversación.', policy: 'Privacidad',
           accept: 'Empezar', hint: 'Decoración, medidas, envío', typing: 'escribiendo…',
           slow: 'Sigo pensando…', err: 'Problema de conexión. Inténtelo de nuevo.',
           manager: 'gestor', contactCta: 'Deje su teléfono y le responderemos',
-          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' , phonePh: 'Número de teléfono', barText: 'Deje un número para no perder la conversación', barCta: 'Añadir', barSaved: 'Guardado — gracias.' },
+          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' , phonePh: 'Número de teléfono', barText: 'Deje un número para no perder la conversación', barCta: 'Añadir', barSaved: 'Guardado — gracias.' , tg: 'Continuar en Telegram' },
     it: { title: NAME, sub: 'Assistente IA di GAUDI', ph: 'Scrivi un messaggio…', send: 'Invia',
           open: 'Scrivici', close: 'Chiudi',
           consent: 'Per risponderti conserviamo questa conversazione.', policy: 'Privacy',
           accept: 'Inizia', hint: 'Decori, misure, spedizione', typing: 'sta scrivendo…',
           slow: 'Ci sto ancora lavorando…', err: 'Problema di connessione. Riprova.',
           manager: 'referente', contactCta: 'Lascia il tuo numero, ti ricontattiamo',
-          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' , phonePh: 'Numero di telefono', barText: 'Lascia un numero per non perdere la conversazione', barCta: 'Aggiungi', barSaved: 'Salvato — grazie.' },
+          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' , phonePh: 'Numero di telefono', barText: 'Lascia un numero per non perdere la conversazione', barCta: 'Aggiungi', barSaved: 'Salvato — grazie.' , tg: 'Continua su Telegram' },
     nl: { title: NAME, sub: 'AI-assistent van GAUDI', ph: 'Schrijf een bericht…', send: 'Versturen',
           open: 'Schrijf ons', close: 'Sluiten',
           consent: 'Om te antwoorden bewaren wij dit gesprek.', policy: 'Privacybeleid',
           accept: 'Start chat', hint: 'Decor, maten, levering', typing: 'typt…',
           slow: 'Nog even…', err: 'Verbindingsprobleem. Probeer opnieuw.',
           manager: 'medewerker', contactCta: 'Laat uw telefoonnummer achter, wij reageren',
-          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' , phonePh: 'Telefoonnummer', barText: 'Laat een nummer achter zodat dit gesprek niet verloren gaat', barCta: 'Toevoegen', barSaved: 'Opgeslagen — dank u.' },
+          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' , phonePh: 'Telefoonnummer', barText: 'Laat een nummer achter zodat dit gesprek niet verloren gaat', barCta: 'Toevoegen', barSaved: 'Opgeslagen — dank u.' , tg: 'Verder in Telegram' },
     pl: { title: NAME, sub: 'Asystent AI GAUDI', ph: 'Napisz wiadomość…', send: 'Wyślij',
           open: 'Napisz do nas', close: 'Zamknij',
           consent: 'Aby odpowiedzieć, zachowujemy tę rozmowę.', policy: 'Prywatność',
           accept: 'Rozpocznij', hint: 'Dekory, wymiary, dostawa', typing: 'pisze…',
           slow: 'Jeszcze myślę…', err: 'Problem z połączeniem. Spróbuj ponownie.',
           manager: 'opiekun', contactCta: 'Zostaw numer telefonu, odezwiemy się',
-          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' , phonePh: 'Numer telefonu', barText: 'Zostaw numer, aby nie zgubić rozmowy', barCta: 'Dodaj', barSaved: 'Zapisano — dziękujemy.' }
+          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' , phonePh: 'Numer telefonu', barText: 'Zostaw numer, aby nie zgubić rozmowy', barCta: 'Dodaj', barSaved: 'Zapisano — dziękujemy.' , tg: 'Kontynuuj w Telegramie' }
   };
   var T = STR[L] || STR.en;
 
@@ -246,7 +246,7 @@
   .dots i:nth-child(2) { animation-delay: .18s } .dots i:nth-child(3) { animation-delay: .36s }
   @keyframes b { 0%,60%,100% { opacity: .3; transform: translateY(0) } 30% { opacity: 1; transform: translateY(-3px) } }
 
-  form.composer { display: flex; gap: 8px; padding: 12px; border-top: 1px solid rgba(0,0,0,.07);
+  form.composer { position: relative; display: flex; gap: 8px; padding: 12px; border-top: 1px solid rgba(0,0,0,.07);
                   background: #fff; }
   textarea { flex: 1; resize: none; border: 1px solid rgba(0,0,0,.14); border-radius: 10px;
              padding: 10px 12px; font-size: 14.5px; line-height: 1.4; max-height: 120px;
@@ -255,6 +255,22 @@
   .go { background: ${ACCENT}; color: #fff; border: none; border-radius: 10px; width: 42px;
         cursor: pointer; flex: none; display: grid; place-items: center; }
   .go:disabled { opacity: .45; cursor: default; }
+
+  /* "continue in Telegram": a small rounded square above the send button. Hidden until the
+     composer is hovered or focused on pointer devices; always visible (dimmed) on touch, where
+     there is no hover at all. */
+  .tg {
+    position: absolute; right: 19px; bottom: 70px; width: 22px; height: 22px; border-radius: 7px;
+    background: #2aabee; border: none; display: grid; place-items: center; cursor: pointer;
+    box-shadow: 0 3px 9px rgba(0,0,0,.25); padding: 0;
+    opacity: 0; transform: translateY(5px) scale(.85);
+    transition: opacity .16s ease, transform .16s ease;
+  }
+  .tg svg { width: 12px; height: 12px; fill: #fff; }
+  .composer:hover .tg, .composer:focus-within .tg, .tg:focus-visible { opacity: 1; transform: none; }
+  .tg:focus-visible { outline: 2px solid ${ACCENT}; outline-offset: 2px; }
+  @media (hover: none) { .tg { opacity: .55; transform: none; } }
+  .tg[hidden] { display: none !important; }
   .go svg { width: 18px; height: 18px; }
 
   /* proactive invite: a small bubble beside the launcher, never a forced pop-up */
@@ -342,7 +358,10 @@
       '<aside class="bar" hidden><span class="txt">' + esc(T.barText) + '</span>' +
         '<button class="go2" type="button">' + esc(T.barCta) + '</button></aside>' +
       '<div class="thread" role="log" aria-live="polite"></div>' +
-      '<form class="composer" hidden><textarea rows="1" placeholder="' + esc(T.ph) + '" maxlength="2000"></textarea>' +
+      '<form class="composer" hidden>' +
+        '<button class="tg" type="button" title="' + esc(T.tg) + '" aria-label="' + esc(T.tg) + '">' +
+          '<svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.9 19c-.2 1-.8 1.2-1.6.8l-4.5-3.3-2.2 2.1c-.2.2-.4.4-.9.4l.3-4.6L18.4 7c.4-.3-.1-.5-.6-.2L7.5 13.3l-4.4-1.4c-1-.3-1-1 .2-1.4l17.2-6.6c.8-.3 1.5.2 1.4 1.4Z"/></svg>' + '</button>' +
+        '<textarea rows="1" placeholder="' + esc(T.ph) + '" maxlength="2000"></textarea>' +
         '<button class="go" type="submit" aria-label="' + esc(T.send) + '">' + ICON_SEND + '</button></form>' +
       '<form class="contact" hidden><p>' + esc(T.contactCta) + '</p>' +
         '<input name="name" placeholder="' + esc(T.name) + '" autocomplete="name">' +
@@ -674,6 +693,23 @@
       hideInvite(false);
       open();
       note(INVITE_TEXT || T.invite);        // carry the greeting into the thread
+    });
+  }
+
+  // ---------------------------------------------------------------- continue in Telegram
+  // Opens the bot with a single-use code so the same conversation carries on there. The window is
+  // opened synchronously on the click and its location filled in afterwards — opening it inside
+  // the fetch callback would be blocked as a pop-up.
+  var tgBtn = $('.tg');
+  if (tgBtn) {
+    tgBtn.addEventListener('click', function () {
+      var w = window.open('', '_blank');
+      api('/tg-link', { sid: sid, page_url: location.href, lang: L })
+        .then(function (d) {
+          if (d && d.url) { if (w) w.location.href = d.url; else location.href = d.url; }
+          else if (w) w.close();
+        })
+        .catch(function () { if (w) w.close(); note(T.err); });
     });
   }
 
