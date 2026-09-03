@@ -97,57 +97,57 @@
           consent: 'To answer you, we keep this conversation.', policy: 'Privacy policy',
           accept: 'Start chat', hint: 'Ask about decor, sizes, delivery', typing: 'typing…',
           slow: 'Still working on it…', err: 'Connection problem. Try again.',
-          manager: 'manager', contactCta: 'Leave your e-mail and we will reply',
-          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' , phonePh: 'Phone or e-mail (optional)', barText: 'Leave a phone number so this chat is not lost', barCta: 'Add', barSaved: 'Saved — thank you.' },
+          manager: 'manager', contactCta: 'Leave your phone number and we will reply',
+          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' , phonePh: 'Phone number', barText: 'Leave a phone number so this chat is not lost', barCta: 'Add', barSaved: 'Saved — thank you.' },
     ru: { title: NAME, sub: 'ИИ-ассистент GAUDI', ph: 'Напишите сообщение…', send: 'Отправить',
           open: 'Написать нам', close: 'Закрыть чат',
           consent: 'Чтобы ответить, мы сохраняем переписку.', policy: 'Политика конфиденциальности',
           accept: 'Начать чат', hint: 'Спросите про декор, размеры, доставку', typing: 'печатает…',
           slow: 'Ещё думаю…', err: 'Проблема со связью. Попробуйте ещё раз.',
-          manager: 'менеджер', contactCta: 'Оставьте e-mail, и мы ответим',
-          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' , phonePh: 'Телефон или e-mail (необязательно)', barText: 'Оставьте номер, чтобы не потерять диалог', barCta: 'Добавить', barSaved: 'Сохранено, спасибо.' },
+          manager: 'менеджер', contactCta: 'Оставьте телефон, и мы ответим',
+          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' , phonePh: 'Телефон', barText: 'Оставьте номер, чтобы не потерять диалог', barCta: 'Добавить', barSaved: 'Сохранено, спасибо.' },
     de: { title: NAME, sub: 'KI-Assistent von GAUDI', ph: 'Nachricht schreiben…', send: 'Senden',
           open: 'Schreiben Sie uns', close: 'Chat schließen',
           consent: 'Um zu antworten, speichern wir diesen Chat.', policy: 'Datenschutz',
           accept: 'Chat starten', hint: 'Fragen zu Dekor, Maßen, Lieferung', typing: 'schreibt…',
           slow: 'Einen Moment noch…', err: 'Verbindungsproblem. Bitte erneut versuchen.',
-          manager: 'Berater', contactCta: 'E-Mail hinterlassen, wir antworten',
-          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' , phonePh: 'Telefon oder E-Mail (optional)', barText: 'Nummer hinterlassen, damit der Chat nicht verloren geht', barCta: 'Hinzufügen', barSaved: 'Gespeichert — danke.' },
+          manager: 'Berater', contactCta: 'Telefonnummer hinterlassen, wir melden uns',
+          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' , phonePh: 'Telefonnummer', barText: 'Nummer hinterlassen, damit der Chat nicht verloren geht', barCta: 'Hinzufügen', barSaved: 'Gespeichert — danke.' },
     fr: { title: NAME, sub: 'Assistant IA de GAUDI', ph: 'Écrivez un message…', send: 'Envoyer',
           open: 'Écrivez-nous', close: 'Fermer',
           consent: 'Pour vous répondre, nous conservons cette conversation.', policy: 'Confidentialité',
           accept: 'Démarrer', hint: 'Décor, dimensions, livraison', typing: 'écrit…',
           slow: 'Je réfléchis encore…', err: 'Problème de connexion. Réessayez.',
-          manager: 'conseiller', contactCta: 'Laissez votre e-mail, nous répondrons',
-          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' , phonePh: 'Téléphone ou e-mail (facultatif)', barText: 'Laissez un numéro pour ne pas perdre la conversation', barCta: 'Ajouter', barSaved: 'Enregistré — merci.' },
+          manager: 'conseiller', contactCta: 'Laissez votre numéro, nous vous rappellerons',
+          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' , phonePh: 'Numéro de téléphone', barText: 'Laissez un numéro pour ne pas perdre la conversation', barCta: 'Ajouter', barSaved: 'Enregistré — merci.' },
     es: { title: NAME, sub: 'Asistente de IA de GAUDI', ph: 'Escriba un mensaje…', send: 'Enviar',
           open: 'Escríbanos', close: 'Cerrar',
           consent: 'Para responderle, guardamos esta conversación.', policy: 'Privacidad',
           accept: 'Empezar', hint: 'Decoración, medidas, envío', typing: 'escribiendo…',
           slow: 'Sigo pensando…', err: 'Problema de conexión. Inténtelo de nuevo.',
-          manager: 'gestor', contactCta: 'Deje su e-mail y le responderemos',
-          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' , phonePh: 'Teléfono o e-mail (opcional)', barText: 'Deje un número para no perder la conversación', barCta: 'Añadir', barSaved: 'Guardado — gracias.' },
+          manager: 'gestor', contactCta: 'Deje su teléfono y le responderemos',
+          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' , phonePh: 'Número de teléfono', barText: 'Deje un número para no perder la conversación', barCta: 'Añadir', barSaved: 'Guardado — gracias.' },
     it: { title: NAME, sub: 'Assistente IA di GAUDI', ph: 'Scrivi un messaggio…', send: 'Invia',
           open: 'Scrivici', close: 'Chiudi',
           consent: 'Per risponderti conserviamo questa conversazione.', policy: 'Privacy',
           accept: 'Inizia', hint: 'Decori, misure, spedizione', typing: 'sta scrivendo…',
           slow: 'Ci sto ancora lavorando…', err: 'Problema di connessione. Riprova.',
-          manager: 'referente', contactCta: 'Lascia la tua e-mail, ti risponderemo',
-          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' , phonePh: 'Telefono o e-mail (facoltativo)', barText: 'Lascia un numero per non perdere la conversazione', barCta: 'Aggiungi', barSaved: 'Salvato — grazie.' },
+          manager: 'referente', contactCta: 'Lascia il tuo numero, ti ricontattiamo',
+          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' , phonePh: 'Numero di telefono', barText: 'Lascia un numero per non perdere la conversazione', barCta: 'Aggiungi', barSaved: 'Salvato — grazie.' },
     nl: { title: NAME, sub: 'AI-assistent van GAUDI', ph: 'Schrijf een bericht…', send: 'Versturen',
           open: 'Schrijf ons', close: 'Sluiten',
           consent: 'Om te antwoorden bewaren wij dit gesprek.', policy: 'Privacybeleid',
           accept: 'Start chat', hint: 'Decor, maten, levering', typing: 'typt…',
           slow: 'Nog even…', err: 'Verbindingsprobleem. Probeer opnieuw.',
-          manager: 'medewerker', contactCta: 'Laat uw e-mail achter, wij antwoorden',
-          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' , phonePh: 'Telefoon of e-mail (optioneel)', barText: 'Laat een nummer achter zodat dit gesprek niet verloren gaat', barCta: 'Toevoegen', barSaved: 'Opgeslagen — dank u.' },
+          manager: 'medewerker', contactCta: 'Laat uw telefoonnummer achter, wij reageren',
+          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' , phonePh: 'Telefoonnummer', barText: 'Laat een nummer achter zodat dit gesprek niet verloren gaat', barCta: 'Toevoegen', barSaved: 'Opgeslagen — dank u.' },
     pl: { title: NAME, sub: 'Asystent AI GAUDI', ph: 'Napisz wiadomość…', send: 'Wyślij',
           open: 'Napisz do nas', close: 'Zamknij',
           consent: 'Aby odpowiedzieć, zachowujemy tę rozmowę.', policy: 'Prywatność',
           accept: 'Rozpocznij', hint: 'Dekory, wymiary, dostawa', typing: 'pisze…',
           slow: 'Jeszcze myślę…', err: 'Problem z połączeniem. Spróbuj ponownie.',
-          manager: 'opiekun', contactCta: 'Zostaw e-mail, odpowiemy',
-          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' , phonePh: 'Telefon lub e-mail (opcjonalnie)', barText: 'Zostaw numer, aby nie zgubić rozmowy', barCta: 'Dodaj', barSaved: 'Zapisano — dziękujemy.' }
+          manager: 'opiekun', contactCta: 'Zostaw numer telefonu, odezwiemy się',
+          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' , phonePh: 'Numer telefonu', barText: 'Zostaw numer, aby nie zgubić rozmowy', barCta: 'Dodaj', barSaved: 'Zapisano — dziękujemy.' }
   };
   var T = STR[L] || STR.en;
 
@@ -346,7 +346,7 @@
         '<button class="go" type="submit" aria-label="' + esc(T.send) + '">' + ICON_SEND + '</button></form>' +
       '<form class="contact" hidden><p>' + esc(T.contactCta) + '</p>' +
         '<input name="name" placeholder="' + esc(T.name) + '" autocomplete="name">' +
-        '<input name="email" type="email" placeholder="' + esc(T.email) + '" autocomplete="email" required>' +
+        '<input name="phone" type="text" inputmode="tel" placeholder="' + esc(T.phonePh) + '" autocomplete="tel" required>' +
         '<button type="submit">' + esc(T.save) + '</button></form>' +
     '</section>';
   root.appendChild(wrap);
@@ -536,7 +536,7 @@
   contact.addEventListener('submit', function (e) {
     e.preventDefault();
     var f = new FormData(contact);
-    api('/contact', { sid: sid, name: f.get('name') || '', email: f.get('email') || '' })
+    api('/contact', { sid: sid, name: f.get('name') || '', phone: f.get('phone') || '' })
       .then(function () {
         contact.hidden = true; contactGiven = true; bar.hidden = true;
         try { localStorage.setItem('gaudi_contact_given', '1'); } catch (e) {}
