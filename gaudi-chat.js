@@ -16,6 +16,9 @@
  *   data-position    "right" (default) | "left"  — the site already has WhatsApp/Telegram
  *                    bubbles bottom-right, so "left" may be the right call there
  *   data-offset     px from the bottom, default 24 — raise it to clear those bubbles
+ *   data-offset-mobile  px from the bottom on narrow screens (default: same as data-offset) —
+ *                   raise it to clear a fixed bottom menu
+ *   data-mobile-breakpoint  width below which the mobile offset applies, default 900
  *   data-invite     "off" disables the proactive invite bubble (on by default)
  *   data-invite-delay   seconds on the page before it appears, default 40
  *   data-invite-text    override the invite copy (otherwise localised, see STR.invite)
@@ -40,6 +43,9 @@
   var POLICY = A('policy', '');
   var SIDE = A('position', 'right') === 'left' ? 'left' : 'right';
   var OFFSET = parseInt(A('offset', '24'), 10) || 24;
+  var MOB_BP = parseInt(A('mobile-breakpoint', '900'), 10) || 900;
+  var MOB_OFFSET = parseInt(A('offset-mobile', String(OFFSET)), 10);
+  if (isNaN(MOB_OFFSET)) MOB_OFFSET = OFFSET;
   var INVITE_ON = A('invite', 'on') !== 'off';
   var INVITE_DELAY = (parseInt(A('invite-delay', '40'), 10) || 40) * 1000;
   var INVITE_TEXT = A('invite-text', '');
@@ -57,74 +63,31 @@
   // including the Dutch and German ones (checked 2026-09-02). Trusting it would show a Russian
   // widget to Dutch visitors. If that attribute is ever fixed site-wide, it can be added back.
   var SUPPORTED = ['en', 'ru', 'de', 'fr', 'es', 'it', 'nl', 'pl'];
-  function langFromPath() {
-    var parts = location.pathname.toLowerCase().split('/').filter(Boolean).slice(0, 2);
-    for (var i = 0; i < parts.length; i++) {
-      if (SUPPORTED.indexOf(parts[i]) !== -1) return parts[i];
+
+  // gaudidecor.eu publishes the page language in a Content-Language meta tag — most reliable.
+  function langFromMeta() {
+    var metas = document.getElementsByTagName('meta');
+    for (var i = 0; i < metas.length; i++) {
+      var eq = (metas[i].getAttribute('http-equiv') || metas[i].getAttribute('name') || '').toLowerCase();
+      if (eq === 'content-language') {
+        var v = (metas[i].getAttribute('content') || '').slice(0, 2).toLowerCase();
+        if (SUPPORTED.indexOf(v) !== -1) return v;
+      }
     }
     return '';
   }
-  var L = String(A('lang', '') || langFromPath() || navigator.language || 'en')
+
+  // URLs are /<country>/<language>/..., e.g. /de/en/ is Germany in English — so the SECOND
+  // segment is the language. Reading the first one would call that page German.
+  function langFromPath() {
+    var parts = location.pathname.toLowerCase().split('/').filter(Boolean);
+    return (parts.length > 1 && SUPPORTED.indexOf(parts[1]) !== -1) ? parts[1] : '';
+  }
+
+  // <html lang> is not consulted: the site had it hardcoded to "ru" everywhere and has now
+  // removed it altogether.
+  var L = String(A('lang', '') || langFromMeta() || langFromPath() || navigator.language || 'en')
             .slice(0, 2).toLowerCase();
-  var NAME = 'Toni';
-  var STR = {
-    en: { title: NAME, sub: 'GAUDI AI assistant', ph: 'Write a message…', send: 'Send',
-          open: 'Chat with us', close: 'Close chat',
-          consent: 'To answer you, we keep this conversation.', policy: 'Privacy policy',
-          accept: 'Start chat', hint: 'Ask about decor, sizes, delivery', typing: 'typing…',
-          slow: 'Still working on it…', err: 'Connection problem. Try again.',
-          manager: 'manager', contactCta: 'Leave your e-mail and we will reply',
-          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' },
-    ru: { title: NAME, sub: 'ИИ-ассистент GAUDI', ph: 'Напишите сообщение…', send: 'Отправить',
-          open: 'Написать нам', close: 'Закрыть чат',
-          consent: 'Чтобы ответить, мы сохраняем переписку.', policy: 'Политика конфиденциальности',
-          accept: 'Начать чат', hint: 'Спросите про декор, размеры, доставку', typing: 'печатает…',
-          slow: 'Ещё думаю…', err: 'Проблема со связью. Попробуйте ещё раз.',
-          manager: 'менеджер', contactCta: 'Оставьте e-mail, и мы ответим',
-          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' },
-    de: { title: NAME, sub: 'KI-Assistent von GAUDI', ph: 'Nachricht schreiben…', send: 'Senden',
-          open: 'Schreiben Sie uns', close: 'Chat schließen',
-          consent: 'Um zu antworten, speichern wir diesen Chat.', policy: 'Datenschutz',
-          accept: 'Chat starten', hint: 'Fragen zu Dekor, Maßen, Lieferung', typing: 'schreibt…',
-          slow: 'Einen Moment noch…', err: 'Verbindungsproblem. Bitte erneut versuchen.',
-          manager: 'Berater', contactCta: 'E-Mail hinterlassen, wir antworten',
-          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' },
-    fr: { title: NAME, sub: 'Assistant IA de GAUDI', ph: 'Écrivez un message…', send: 'Envoyer',
-          open: 'Écrivez-nous', close: 'Fermer',
-          consent: 'Pour vous répondre, nous conservons cette conversation.', policy: 'Confidentialité',
-          accept: 'Démarrer', hint: 'Décor, dimensions, livraison', typing: 'écrit…',
-          slow: 'Je réfléchis encore…', err: 'Problème de connexion. Réessayez.',
-          manager: 'conseiller', contactCta: 'Laissez votre e-mail, nous répondrons',
-          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' },
-    es: { title: NAME, sub: 'Asistente de IA de GAUDI', ph: 'Escriba un mensaje…', send: 'Enviar',
-          open: 'Escríbanos', close: 'Cerrar',
-          consent: 'Para responderle, guardamos esta conversación.', policy: 'Privacidad',
-          accept: 'Empezar', hint: 'Decoración, medidas, envío', typing: 'escribiendo…',
-          slow: 'Sigo pensando…', err: 'Problema de conexión. Inténtelo de nuevo.',
-          manager: 'gestor', contactCta: 'Deje su e-mail y le responderemos',
-          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' },
-    it: { title: NAME, sub: 'Assistente IA di GAUDI', ph: 'Scrivi un messaggio…', send: 'Invia',
-          open: 'Scrivici', close: 'Chiudi',
-          consent: 'Per risponderti conserviamo questa conversazione.', policy: 'Privacy',
-          accept: 'Inizia', hint: 'Decori, misure, spedizione', typing: 'sta scrivendo…',
-          slow: 'Ci sto ancora lavorando…', err: 'Problema di connessione. Riprova.',
-          manager: 'referente', contactCta: 'Lascia la tua e-mail, ti risponderemo',
-          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' },
-    nl: { title: NAME, sub: 'AI-assistent van GAUDI', ph: 'Schrijf een bericht…', send: 'Versturen',
-          open: 'Schrijf ons', close: 'Sluiten',
-          consent: 'Om te antwoorden bewaren wij dit gesprek.', policy: 'Privacybeleid',
-          accept: 'Start chat', hint: 'Decor, maten, levering', typing: 'typt…',
-          slow: 'Nog even…', err: 'Verbindingsprobleem. Probeer opnieuw.',
-          manager: 'medewerker', contactCta: 'Laat uw e-mail achter, wij antwoorden',
-          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' },
-    pl: { title: NAME, sub: 'Asystent AI GAUDI', ph: 'Napisz wiadomość…', send: 'Wyślij',
-          open: 'Napisz do nas', close: 'Zamknij',
-          consent: 'Aby odpowiedzieć, zachowujemy tę rozmowę.', policy: 'Prywatność',
-          accept: 'Rozpocznij', hint: 'Dekory, wymiary, dostawa', typing: 'pisze…',
-          slow: 'Jeszcze myślę…', err: 'Problem z połączeniem. Spróbuj ponownie.',
-          manager: 'opiekun', contactCta: 'Zostaw e-mail, odpowiemy',
-          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' }
-  };
   var T = STR[L] || STR.en;
 
   // ---------------------------------------------------------------- state
@@ -246,12 +209,12 @@
   .teaser[hidden] { display: none !important; }
   .teaser .tname { font-weight: 600; display: block; margin-bottom: 3px; color: #1c1c1a; }
   .teaser .tmsg { display: block; color: #4a4442; }
-  .teaser .x {
+  .teaser .tx {
     background: transparent; border: none; color: #97918f; font-size: 17px; line-height: 1;
     cursor: pointer; padding: 2px 3px; margin: -3px -2px 0 0; border-radius: 5px; flex: none;
   }
-  .teaser .x:hover { background: rgba(0,0,0,.06); color: #1c1c1a; }
-  @media (max-width: 480px) { .teaser { max-width: calc(100vw - 92px); ${SIDE}: 16px; bottom: 74px; } }
+  .teaser .tx:hover { background: rgba(0,0,0,.06); color: #1c1c1a; }
+  @media (max-width: 480px) { .teaser { max-width: calc(100vw - 92px); ${SIDE}: 16px; } }
 
   .gate { padding: 20px 18px; display: flex; flex-direction: column; gap: 14px; }
   .gate p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #55554f; }
@@ -265,10 +228,15 @@
                    font-size: 14px; outline: none; }
   .contact input:focus { border-color: ${ACCENT}; }
 
+  /* Narrow screens: the site keeps a fixed bottom menu there, so the launcher and the invite
+     get their own offset (data-offset-mobile) above whatever that menu occupies. */
+  @media (max-width: ${MOB_BP}px) {
+    .launcher { ${SIDE}: 16px; bottom: ${MOB_OFFSET}px; }
+    .teaser { bottom: ${MOB_OFFSET + 58}px; }
+  }
   @media (max-width: 480px) {
     .panel { ${SIDE}: 0; bottom: 0; width: 100vw; max-width: 100vw; height: 100dvh;
              max-height: 100dvh; border-radius: 0; }
-    .launcher { ${SIDE}: 16px; bottom: 16px; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important } }
   `;
@@ -282,7 +250,7 @@
     '<button class="launcher" aria-haspopup="dialog">' + ICON_CHAT + '<span>' + esc(T.open) + '</span></button>' +
     '<aside class="teaser" role="note" hidden><div><span class="tname">' + esc(NAME) + '</span>' +
       '<span class="tmsg">' + esc(INVITE_TEXT || T.invite) + '</span></div>' +
-      '<button class="x" aria-label="' + esc(T.close) + '">&times;</button></aside>' +
+      '<button class="tx" aria-label="' + esc(T.close) + '">&times;</button></aside>' +
     '<section class="panel" role="dialog" aria-modal="false" aria-label="' + esc(T.title + ' — ' + T.sub) + '">' +
       '<header><div><div class="t">' + esc(T.title) + '</div><div class="s">' + esc(T.sub) + '</div></div>' +
         '<div class="grow"></div><button class="x" aria-label="' + esc(T.close) + '">&times;</button></header>' +
@@ -452,7 +420,7 @@
   }
 
   launcher.addEventListener('click', open);
-  $('.x').addEventListener('click', close);
+  $('.panel .x').addEventListener('click', close);
   root.addEventListener('keydown', function (e) { if (e.key === 'Escape' && opened) close(); });
 
   $('.ok').addEventListener('click', function () {
@@ -522,7 +490,7 @@
   if (INVITE_ON) {
     inviteTimer = setTimeout(showInvite, INVITE_DELAY);
     teaser.addEventListener('click', function (e) {
-      if (e.target.closest('.x')) { hideInvite(true); return; }
+      if (e.target.closest('.tx')) { hideInvite(true); return; }
       hideInvite(false);
       open();
       note(INVITE_TEXT || T.invite);        // carry the greeting into the thread
