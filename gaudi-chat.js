@@ -565,7 +565,9 @@
   function showInvite() {
     if (!inviteAllowed()) return;
     teaser.hidden = false;
-    requestAnimationFrame(function () { teaser.classList.add('in'); });
+    // setTimeout, not requestAnimationFrame: rAF is frozen while the tab is in the background,
+    // which left the bubble in the DOM but permanently at opacity 0.
+    setTimeout(function () { teaser.classList.add('in'); }, 20);
     playClick();
   }
 
