@@ -98,56 +98,56 @@
           accept: 'Start chat', hint: 'Ask about decor, sizes, delivery', typing: 'typing…',
           slow: 'Still working on it…', err: 'Connection problem. Try again.',
           manager: 'manager', contactCta: 'Leave your e-mail and we will reply',
-          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' },
+          email: 'E-mail', name: 'Name (optional)', save: 'Send', saved: 'Thank you — we will be in touch.' , invite: 'Need a hand choosing? Ask me about sizes, styles or delivery.' , phonePh: 'Phone or e-mail (optional)', barText: 'Leave a phone number so this chat is not lost', barCta: 'Add', barSaved: 'Saved — thank you.' },
     ru: { title: NAME, sub: 'ИИ-ассистент GAUDI', ph: 'Напишите сообщение…', send: 'Отправить',
           open: 'Написать нам', close: 'Закрыть чат',
           consent: 'Чтобы ответить, мы сохраняем переписку.', policy: 'Политика конфиденциальности',
           accept: 'Начать чат', hint: 'Спросите про декор, размеры, доставку', typing: 'печатает…',
           slow: 'Ещё думаю…', err: 'Проблема со связью. Попробуйте ещё раз.',
           manager: 'менеджер', contactCta: 'Оставьте e-mail, и мы ответим',
-          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' },
+          email: 'E-mail', name: 'Имя (необязательно)', save: 'Отправить', saved: 'Спасибо, мы свяжемся с вами.' , invite: 'Помочь с подбором? Спросите про размеры, стиль или доставку.' , phonePh: 'Телефон или e-mail (необязательно)', barText: 'Оставьте номер, чтобы не потерять диалог', barCta: 'Добавить', barSaved: 'Сохранено, спасибо.' },
     de: { title: NAME, sub: 'KI-Assistent von GAUDI', ph: 'Nachricht schreiben…', send: 'Senden',
           open: 'Schreiben Sie uns', close: 'Chat schließen',
           consent: 'Um zu antworten, speichern wir diesen Chat.', policy: 'Datenschutz',
           accept: 'Chat starten', hint: 'Fragen zu Dekor, Maßen, Lieferung', typing: 'schreibt…',
           slow: 'Einen Moment noch…', err: 'Verbindungsproblem. Bitte erneut versuchen.',
           manager: 'Berater', contactCta: 'E-Mail hinterlassen, wir antworten',
-          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' },
+          email: 'E-Mail', name: 'Name (optional)', save: 'Senden', saved: 'Danke — wir melden uns.' , invite: 'Brauchen Sie Hilfe bei der Auswahl? Fragen Sie nach Maßen, Stilen oder Lieferung.' , phonePh: 'Telefon oder E-Mail (optional)', barText: 'Nummer hinterlassen, damit der Chat nicht verloren geht', barCta: 'Hinzufügen', barSaved: 'Gespeichert — danke.' },
     fr: { title: NAME, sub: 'Assistant IA de GAUDI', ph: 'Écrivez un message…', send: 'Envoyer',
           open: 'Écrivez-nous', close: 'Fermer',
           consent: 'Pour vous répondre, nous conservons cette conversation.', policy: 'Confidentialité',
           accept: 'Démarrer', hint: 'Décor, dimensions, livraison', typing: 'écrit…',
           slow: 'Je réfléchis encore…', err: 'Problème de connexion. Réessayez.',
           manager: 'conseiller', contactCta: 'Laissez votre e-mail, nous répondrons',
-          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' },
+          email: 'E-mail', name: 'Nom (facultatif)', save: 'Envoyer', saved: 'Merci — nous vous recontactons.' , invite: 'Besoin d’aide pour choisir ? Dimensions, styles, livraison — demandez.' , phonePh: 'Téléphone ou e-mail (facultatif)', barText: 'Laissez un numéro pour ne pas perdre la conversation', barCta: 'Ajouter', barSaved: 'Enregistré — merci.' },
     es: { title: NAME, sub: 'Asistente de IA de GAUDI', ph: 'Escriba un mensaje…', send: 'Enviar',
           open: 'Escríbanos', close: 'Cerrar',
           consent: 'Para responderle, guardamos esta conversación.', policy: 'Privacidad',
           accept: 'Empezar', hint: 'Decoración, medidas, envío', typing: 'escribiendo…',
           slow: 'Sigo pensando…', err: 'Problema de conexión. Inténtelo de nuevo.',
           manager: 'gestor', contactCta: 'Deje su e-mail y le responderemos',
-          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' },
+          email: 'E-mail', name: 'Nombre (opcional)', save: 'Enviar', saved: 'Gracias, le contactaremos.' , invite: '¿Le ayudo a elegir? Pregunte por medidas, estilos o envío.' , phonePh: 'Teléfono o e-mail (opcional)', barText: 'Deje un número para no perder la conversación', barCta: 'Añadir', barSaved: 'Guardado — gracias.' },
     it: { title: NAME, sub: 'Assistente IA di GAUDI', ph: 'Scrivi un messaggio…', send: 'Invia',
           open: 'Scrivici', close: 'Chiudi',
           consent: 'Per risponderti conserviamo questa conversazione.', policy: 'Privacy',
           accept: 'Inizia', hint: 'Decori, misure, spedizione', typing: 'sta scrivendo…',
           slow: 'Ci sto ancora lavorando…', err: 'Problema di connessione. Riprova.',
           manager: 'referente', contactCta: 'Lascia la tua e-mail, ti risponderemo',
-          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' },
+          email: 'E-mail', name: 'Nome (facoltativo)', save: 'Invia', saved: 'Grazie, ti contatteremo.' , invite: 'Ti aiuto a scegliere? Chiedi di misure, stili o spedizione.' , phonePh: 'Telefono o e-mail (facoltativo)', barText: 'Lascia un numero per non perdere la conversazione', barCta: 'Aggiungi', barSaved: 'Salvato — grazie.' },
     nl: { title: NAME, sub: 'AI-assistent van GAUDI', ph: 'Schrijf een bericht…', send: 'Versturen',
           open: 'Schrijf ons', close: 'Sluiten',
           consent: 'Om te antwoorden bewaren wij dit gesprek.', policy: 'Privacybeleid',
           accept: 'Start chat', hint: 'Decor, maten, levering', typing: 'typt…',
           slow: 'Nog even…', err: 'Verbindingsprobleem. Probeer opnieuw.',
           manager: 'medewerker', contactCta: 'Laat uw e-mail achter, wij antwoorden',
-          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' },
+          email: 'E-mail', name: 'Naam (optioneel)', save: 'Versturen', saved: 'Dank u — wij nemen contact op.' , invite: 'Hulp bij het kiezen? Vraag naar maten, stijlen of levering.' , phonePh: 'Telefoon of e-mail (optioneel)', barText: 'Laat een nummer achter zodat dit gesprek niet verloren gaat', barCta: 'Toevoegen', barSaved: 'Opgeslagen — dank u.' },
     pl: { title: NAME, sub: 'Asystent AI GAUDI', ph: 'Napisz wiadomość…', send: 'Wyślij',
           open: 'Napisz do nas', close: 'Zamknij',
           consent: 'Aby odpowiedzieć, zachowujemy tę rozmowę.', policy: 'Prywatność',
           accept: 'Rozpocznij', hint: 'Dekory, wymiary, dostawa', typing: 'pisze…',
           slow: 'Jeszcze myślę…', err: 'Problem z połączeniem. Spróbuj ponownie.',
           manager: 'opiekun', contactCta: 'Zostaw e-mail, odpowiemy',
-          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' }
+          email: 'E-mail', name: 'Imię (opcjonalnie)', save: 'Wyślij', saved: 'Dziękujemy — odezwiemy się.' , invite: 'Pomóc w wyborze? Zapytaj o wymiary, style lub dostawę.' , phonePh: 'Telefon lub e-mail (opcjonalnie)', barText: 'Zostaw numer, aby nie zgubić rozmowy', barCta: 'Dodaj', barSaved: 'Zapisano — dziękujemy.' }
   };
   var T = STR[L] || STR.en;
 
@@ -277,6 +277,26 @@
   .teaser .tx:hover { background: rgba(0,0,0,.06); color: #1c1c1a; }
   @media (max-width: 480px) { .teaser { max-width: calc(100vw - 92px); ${SIDE}: 16px; } }
 
+  /* amber strip under the header: visible but not a modal — the visitor can ignore it */
+  .bar {
+    display: flex; align-items: center; gap: 9px; padding: 10px 12px;
+    background: #fdf1ce; border-bottom: 1px solid #eedda2; color: #6b5518;
+    font-size: 13px; line-height: 1.35; cursor: pointer;
+  }
+  .bar[hidden] { display: none !important; }
+  .bar .txt { flex: 1; }
+  .bar .go2 { background: #6b5518; color: #fff; border: none; border-radius: 7px;
+              padding: 6px 11px; font-size: 12.5px; cursor: pointer; flex: none; }
+  .bar form { display: flex; gap: 7px; width: 100%; }
+  .bar input { flex: 1; min-width: 0; border: 1px solid #dfc98a; border-radius: 7px;
+               padding: 7px 9px; font-size: 13px; outline: none; background: #fffdf6; }
+  .bar input:focus { border-color: #6b5518; }
+  .bar.done { background: #eef5ec; border-bottom-color: #cfe0cb; color: #335c3a; cursor: default; }
+
+  .gate .phone { border: 1px solid rgba(0,0,0,.14); border-radius: 10px; padding: 10px 12px;
+                 font-size: 14.5px; outline: none; width: 100%; }
+  .gate .phone:focus { border-color: ${ACCENT}; }
+
   .gate { padding: 20px 18px; display: flex; flex-direction: column; gap: 14px; }
   .gate p { margin: 0; font-size: 13.5px; line-height: 1.55; color: #55554f; }
   .gate a { color: ${ACCENT}; }
@@ -317,7 +337,10 @@
         '<div class="grow"></div><button class="x" aria-label="' + esc(T.close) + '">&times;</button></header>' +
       '<div class="gate" hidden><p>' + esc(T.consent) +
         (POLICY ? ' <a href="' + encodeURI(POLICY) + '" target="_blank" rel="noopener noreferrer">' + esc(T.policy) + '</a>' : '') +
-        '</p><button class="ok">' + esc(T.accept) + '</button></div>' +
+        '</p><input class="phone" type="text" inputmode="tel" autocomplete="tel" placeholder="' +
+        esc(T.phonePh) + '"><button class="ok">' + esc(T.accept) + '</button></div>' +
+      '<aside class="bar" hidden><span class="txt">' + esc(T.barText) + '</span>' +
+        '<button class="go2" type="button">' + esc(T.barCta) + '</button></aside>' +
       '<div class="thread" role="log" aria-live="polite"></div>' +
       '<form class="composer" hidden><textarea rows="1" placeholder="' + esc(T.ph) + '" maxlength="2000"></textarea>' +
         '<button class="go" type="submit" aria-label="' + esc(T.send) + '">' + ICON_SEND + '</button></form>' +
@@ -367,6 +390,7 @@
   }
 
   function addMsg(m) {
+    if (m.role !== 'client') m = { ...m, body: handleMarker(String(m.body || '')) };
     var el = document.createElement('div');
     el.className = 'msg ' + (m.role === 'client' ? 'client' : m.role === 'manager' ? 'manager' : 'bot');
     if (m.role === 'manager') {
@@ -417,7 +441,7 @@
       (d.messages || []).forEach(function (m) {
         if (m.role === 'client' && m.id <= lastId) return;
         typing(false); addMsg(m);
-        if (m.role !== 'client') fastUntil = 0;        // answer arrived: back to the lazy cadence
+        if (m.role !== 'client') { fastUntil = 0; setTimeout(function () { showBar(false); }, 1200); }        // answer arrived: back to the lazy cadence
       });
       if (d.human_active && d.human_name && d.human_name !== humanName) {
         humanName = d.human_name;
@@ -485,7 +509,9 @@
   root.addEventListener('keydown', function (e) { if (e.key === 'Escape' && opened) close(); });
 
   $('.ok').addEventListener('click', function () {
+    var typed = $('.gate .phone') ? $('.gate .phone').value : '';
     api('/consent', { sid: sid, granted: true, text: T.consent, page_url: location.href, lang: L })
+      .then(function () { return typed ? saveContact(typed) : null; })
       .then(function () {
         consentDone = true; gate.hidden = true; composer.hidden = false;
         note(T.hint); input.focus();
@@ -511,9 +537,72 @@
     e.preventDefault();
     var f = new FormData(contact);
     api('/contact', { sid: sid, name: f.get('name') || '', email: f.get('email') || '' })
-      .then(function () { contact.hidden = true; note(T.saved); })
+      .then(function () {
+        contact.hidden = true; contactGiven = true; bar.hidden = true;
+        try { localStorage.setItem('gaudi_contact_given', '1'); } catch (e) {}
+        note(T.saved);
+      })
       .catch(function () { note(T.err); });
   });
+
+  // ---------------------------------------------------------------- contact capture
+  // The phone is never required: it is optional on the consent screen, and afterwards it lives in
+  // an amber strip under the header that the visitor can ignore. The strip also opens on demand —
+  // the agent emits [[contact]] when it reaches a point where leaving a contact makes sense
+  // (a shortlist to send, a quote to follow up), and that marker is stripped from the text.
+  var bar = $('.bar'), contactGiven = false;
+  var CONTACT_KEY = 'gaudi_contact_given';
+  try { contactGiven = !!localStorage.getItem(CONTACT_KEY); } catch (e) {}
+
+  function saveContact(value) {
+    var v = String(value || '').trim();
+    if (!v) return Promise.resolve(false);
+    var body = { sid: sid };
+    body[v.indexOf('@') > 0 ? 'email' : 'phone'] = v;
+    return api('/contact', body).then(function () {
+      contactGiven = true;
+      try { localStorage.setItem(CONTACT_KEY, '1'); } catch (e) {}
+      return true;
+    }).catch(function () { return false; });
+  }
+
+  function showBar(expanded) {
+    if (contactGiven) { bar.hidden = true; return; }
+    bar.hidden = false;
+    if (expanded) openBarForm();
+  }
+
+  function openBarForm() {
+    if (bar.querySelector('form') || contactGiven) return;
+    var f = document.createElement('form');
+    f.innerHTML = '<input type="text" inputmode="tel" autocomplete="tel" placeholder="' +
+                  esc(T.phonePh) + '"><button class="go2" type="submit">' + esc(T.barCta) + '</button>';
+    bar.innerHTML = '';
+    bar.appendChild(f);
+    f.querySelector('input').focus();
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      saveContact(f.querySelector('input').value).then(function (ok) {
+        if (!ok) return;
+        bar.classList.add('done');
+        bar.innerHTML = '<span class="txt">' + esc(T.barSaved) + '</span>';
+        setTimeout(function () { bar.hidden = true; }, 2600);
+      });
+    });
+  }
+
+  bar.addEventListener('click', function (e) {
+    if (!bar.querySelector('form') && !bar.classList.contains('done')) openBarForm();
+  });
+
+  // [[contact]] anywhere in a bot reply opens the strip; it is never shown to the visitor
+  var CONTACT_MARK = /\[\[contact\]\]/gi;
+  function handleMarker(text) {
+    if (!CONTACT_MARK.test(text)) return text;
+    CONTACT_MARK.lastIndex = 0;
+    setTimeout(function () { showBar(true); }, 300);
+    return text.replace(CONTACT_MARK, '').replace(/\s{2,}/g, ' ').trim();
+  }
 
   // ---------------------------------------------------------------- proactive invite
   // A bubble, never a forced panel: an uninvited full-screen chat reads as a pop-up, and on
